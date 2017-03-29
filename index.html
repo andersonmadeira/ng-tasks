@@ -1,29 +1,28 @@
 <!doctype html>
-<html ng-app="todoApp">
+<html ng-app="tasksApp">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="todo.js"></script>
+    <script src="app.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h2>Todo App</h2>
-    <div ng-controller="TodoListController as todoList">
-      <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-      [ <a href="" ng-click="todoList.archive()">archive</a> ]
+    <h2>Tasks</h2>
+    <div ng-controller="TaskListController as ctrl">
+      <span> {{ ctrl.remaining() }} of {{ ctrl.tasks.length }} remaining</span>
+      [ <a href="" ng-click="ctrl.archive()">archive</a> ]
       <ul class="unstyled">
-        <li ng-repeat="todo in todoList.todos">
+        <li ng-repeat="task in ctrl.tasks">
           <label class="checkbox">
-            <input type="checkbox" ng-model="todo.done">
-            <span class="done-{{todo.done}}">{{todo.text}}</span>
+            <input type="checkbox" ng-model="task.done">
+            <span class="done-{{task.done}}">{{task.text}}</span>
           </label>
         </li>
       </ul>
-      <form ng-submit="todoList.addTodo()">
-        <input type="text" ng-model="todoList.todoText"  size="30"
-               placeholder="add new todo here">
-        <input class="btn-primary" type="submit" value="add">
+      <form ng-submit="ctrl.addTask()">
+        <input type="text" ng-model="ctrl.taskText"  size="30"
+               placeholder="Type your task">
+        <input class="btn-primary" type="submit" value="Add">
       </form>
     </div>
-		<script src="app.js"></script>
   </body>
 </html>

@@ -1,28 +1,28 @@
-angular.module('todoApp', [])
-  .controller('TodoListController', function() {
-    var todoList = this;
-    todoList.todos = [
-      {text:'learn AngularJS', done:true},
-      {text:'build an AngularJS app', done:false}];
+angular.module('tasksApp', [])
+  .controller('TaskListController', function() {
+    var ctrl = this;
+    ctrl.tasks = [
+      {text:'Learn AngularJS', done:true},
+      {text:'Build an AngularJS app', done:false}];
 
-    todoList.addTodo = function() {
-      todoList.todos.push({text:todoList.todoText, done:false});
-      todoList.todoText = '';
+    ctrl.addTask = function() {
+      ctrl.tasks.push({text:ctrl.taskText, done:false});
+      ctrl.taskText = '';
     };
 
-    todoList.remaining = function() {
+    ctrl.remaining = function() {
       var count = 0;
-      angular.forEach(todoList.todos, function(todo) {
-        count += todo.done ? 0 : 1;
+      angular.forEach(ctrl.tasks, function(task) {
+        count += task.done ? 0 : 1;
       });
       return count;
     };
 
-    todoList.archive = function() {
-      var oldTodos = todoList.todos;
-      todoList.todos = [];
-      angular.forEach(oldTodos, function(todo) {
-        if (!todo.done) todoList.todos.push(todo);
+    ctrl.archive = function() {
+      var oldTasks = ctrl.tasks;
+      ctrl.tasks = [];
+      angular.forEach(oldTasks, function(task) {
+        if (!task.done) ctrl.tasks.push(task);
       });
     };
   });
