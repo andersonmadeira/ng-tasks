@@ -1,0 +1,13 @@
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.main-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.checkbox-group-archives {
+  margin-left: 20px;
+}
