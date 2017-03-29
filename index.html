@@ -15,7 +15,7 @@
         <li ng-repeat="task in ctrl.tasks">
           <label class="checkbox">
             <input type="checkbox" ng-model="task.done" ng-click="ctrl.completeTask(task, task.done)">
-            <span class="done-{{task.done}}">[{{task.id}}]{{task.text}}</span>
+            <span class="done-{{task.done}}">{{task.text}}</span>
           </label>
           <br>
           <span>Created date: {{task.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
