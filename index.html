@@ -9,7 +9,7 @@
     <h2>Tasks</h2>
     <div ng-controller="TaskListController as ctrl">
       <span> {{ ctrl.remaining() }} of {{ ctrl.tasks.length }} remaining</span>
-      [ <a href="" ng-click="ctrl.archive()">archive</a> ]
+      [ <a href="" ng-click="ctrl.archive()">Archive completed</a> ]
       <ul class="unstyled">
         <li ng-repeat="task in ctrl.tasks">
           <label class="checkbox">
@@ -27,6 +27,22 @@
                placeholder="Type your task">
         <input class="btn-primary" type="submit" value="Add">
       </form>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox" ng-model="ctrl.showArchives">
+        <span>Display completed tasks</span>
+      </label>
+      <div class="archives" ng-show="ctrl.showArchives">
+        <ul class="unstyled">
+          <li ng-repeat="archivedTask in (ctrl.archives | orderBy: 'completedAt':true )">
+            <span class="done-{{archivedTask.done}}">{{archivedTask.text}}</span>
+            <br>
+            <span>Created date: {{archivedTask.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
+            <br>
+            <span>Completed Date: {{archivedTask.completedAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
