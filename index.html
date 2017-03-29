@@ -2,6 +2,7 @@
 <html ng-app="tasksApp">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
@@ -14,7 +15,7 @@
         <li ng-repeat="task in ctrl.tasks">
           <label class="checkbox">
             <input type="checkbox" ng-model="task.done" ng-click="ctrl.completeTask(task, task.done)">
-            <span class="done-{{task.done}}">{{task.text}}</span>
+            <span class="done-{{task.done}}">[{{task.id}}]{{task.text}}</span>
           </label>
           <br>
           <span>Created date: {{task.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
@@ -30,12 +31,13 @@
       <br>
       <label class="checkbox">
         <input type="checkbox" ng-model="ctrl.showArchives">
-        <span>Display completed tasks</span>
+        <span>Display completed tasks [{{ctrl.archives.length}}]</span>
       </label>
       <div class="archives" ng-show="ctrl.showArchives">
         <ul class="unstyled">
           <li ng-repeat="archivedTask in (ctrl.archives | orderBy: 'completedAt':true )">
             <span class="done-{{archivedTask.done}}">{{archivedTask.text}}</span>
+            &nbsp;&nbsp;<a href="#?" ng-click="ctrl.removeCompleted(archivedTask)">remove</a>
             <br>
             <span>Created date: {{archivedTask.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
             <br>
