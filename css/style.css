@@ -11,3 +11,18 @@
 .checkbox-group-archives {
   margin-left: 20px;
 }
+
+#notasks-warning {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#archives_container {
+  margin-bottom: 25px;
+  margin-top: 0px;
+}
+
+.panel {
+  margin-bottom: 0px !important;
+}

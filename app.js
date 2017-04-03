@@ -1,6 +1,17 @@
-angular.module('tasksApp', ['ngStorage'])
+angular.module('tasksApp', ['ngStorage', 'ui.slimscroll'])
   .controller('TaskListController', ['$scope', '$localStorage', 'Util', function($scope, $localStorage, Util) {
     var ctrl = this;
+
+    ctrl.scrollOptions = {
+      noWatch: true,
+      disableFadeOut: true,
+      height: 200,
+      railColor: '#2c3e50',
+      railVisible: true,
+      color: '#2c3e50',
+      size: '5px'
+    }
+
     ctrl.taskText = "";
 
     ctrl.tasks = $localStorage.tasks || [

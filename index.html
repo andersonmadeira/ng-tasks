@@ -7,11 +7,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Tasks</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-    <script src="app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <script src="js/jquery-slimscroll.min.js"></script>
+    <script src="js/angular-slimscroll.js"></script>
+    <script src="app.js"></script>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,18 +39,20 @@
           <div class="panel panel-default">
             <div class="panel-heading"><a type="button" ng-click="ctrl.archive()" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Archive all completed tasks"><i class="fa fa-archive" aria-hidden="true"></i></a> <b>Tasks</b> <span class="badge pull-right" ng-show="ctrl.remaining() > 0">{{ ctrl.remaining() }}</span></div>
             <div class="panel-body">
-              <p ng-show="ctrl.tasks.length == 0">You have no tasks</p>
-              <ul class="unstyled" ng-show="ctrl.tasks.length > 0">
-                <li ng-repeat="task in ctrl.tasks">
-                  <label class="checkbox">
-                    <input type="checkbox" ng-model="task.done" ng-click="ctrl.completeTask(task, task.done)">
-                    <span class="done-{{task.done}}">{{task.text}}</span>
-                  </label>
-                  <span>Created date: {{task.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
-                  <br>
-                  <span>Completed Date: {{task.completedAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
-                </li>
-              </ul>
+              <div slimscroll="ctrl.scrollOptions">
+                <p id="notasks-warning" ng-show="ctrl.tasks.length == 0">You have no tasks</p>
+                <ul class="unstyled" ng-show="ctrl.tasks.length > 0">
+                  <li ng-repeat="task in ctrl.tasks">
+                    <label class="checkbox">
+                      <input type="checkbox" ng-model="task.done" ng-click="ctrl.completeTask(task, task.done)">
+                      <span class="done-{{task.done}}">{{task.text}}</span>
+                    </label>
+                    <span>Created date: {{task.createdAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
+                    <br>
+                    <span>Completed Date: {{task.completedAt | date: 'dd/MM/yyyy, hh:mm:ss a'}}</span>
+                  </li>
+                </ul>
+              </div>
               <hr>
               <form ng-submit="ctrl.addTask()">
                 <div class="input-group input-group-sm">
@@ -66,9 +70,9 @@
               </label>
             </div>
           </div>
-          <div>
+          <div ng-show="ctrl.showArchives" id="archives_container">
             <br>
-            <div class="archives" ng-show="ctrl.showArchives">
+            <div slimscroll="ctrl.scrollOptions">
               <ul class="unstyled">
                 <li ng-repeat="archivedTask in (ctrl.archives | orderBy: 'completedAt':true )">
                   <span class="done-{{archivedTask.done}}">{{archivedTask.text}}</span>
